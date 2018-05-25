@@ -1,48 +1,51 @@
 <html>
-  <head>
-    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
-  </head>
-  <body>
 
-    <a-scene shadows>
+<head>
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+</head>
 
-      <a-assets>
+<body>
 
-        <img id="sky" src="/images/panorama.jpg">
+  <a-scene shadows>
 
-        <a-cubemap id="sky-cubemap">
-          <img src="/images/cubemap/px.png">
-          <img src="/images/cubemap/nx.png">
-          <img src="/images/cubemap/py.png">
-          <img src="/images/cubemap/ny.png">
-          <img src="/images/cubemap/pz.png">
-          <img src="/images/cubemap/nz.png">
-        </a-cubemap>
+    <a-assets>
 
-      </a-assets>
+      <img id="sky" src="/images/panorama.jpg">
+      <img id="normal-map" src="/images/couch_normal-map.png">
 
-      <a-sky src="#sky"></a-sky>
+      <a-cubemap id="sky-cubemap">
+        <img src="/images/cubemap/px.png">
+        <img src="/images/cubemap/nx.png">
+        <img src="/images/cubemap/py.png">
+        <img src="/images/cubemap/ny.png">
+        <img src="/images/cubemap/pz.png">
+        <img src="/images/cubemap/nz.png">
+      </a-cubemap>
 
-      <a-entity geometry="primitive:box;" position="0 1 0" material="color: red; metalness: .9; roughness: 0; envMap: #sky-cubemap;" shadow="cast: true;">
+    </a-assets>
 
-        <a-entity geometry="primitive: cylinder;" position="1 1 1" rotation="45 45 45" scale=".3 .3 .3" material="color: purple; metalness: .5; roughness: 0; envMap: #sky-cubemap;" shadow="cast: true;"></a-entity>
+    <a-sky src="#sky"></a-sky>
 
-        <a-entity geometry="primitive: torus;" position="-1 1 1" rotation="90 45 45" scale=".3 .3 .3" material="color: orange; metalness: 1; roughness: 0; envMap: #sky-cubemap;" shadow="cast: true;"></a-entity>
-        
-        <a-animation attribute="rotation" dur="4000" to="0 359.999 0" repeat="indefinite" easing="linear"></a-animation>
+    <a-entity geometry="primitive:box;" position="0 1 0" material="color: red; normalMap: #normal-map; metalness: .9; roughness: 0; envMap: #sky-cubemap;" shadow="cast: true;">
 
-      </a-entity>
+      <a-entity geometry="primitive: cylinder;" position="1 1 1" rotation="45 45 45" scale=".3 .3 .3" material="color: purple; metalness: .5; normalMap: #normal-map; roughness: 0; envMap: #sky-cubemap;" shadow="cast: true;"></a-entity>
 
-      <a-entity geometry="primitive: plane; width: 10; height: 10;" rotation="270 0 0" shadow="receive: true;" material="color: blue;"></a-entity>
+      <a-entity geometry="primitive: torus;" position="-1 1 1" rotation="90 45 45" scale=".3 .3 .3" material="color: orange; metalness: 1; roughness: 0; envMap: #sky-cubemap;" shadow="cast: true;"></a-entity>
 
-      <a-entity light="type: point; castShadow: true" position="3 6 5"></a-entity>
+      <a-animation attribute="rotation" dur="4000" to="0 359.999 0" repeat="indefinite" easing="linear"></a-animation>
 
-      <a-entity light="type: ambient; intensity: .2" ></a-entity>
+    </a-entity>
 
-      <a-entity camera="userHeight: 3;" position="0 0 4" look-controls wasd-controls></a-entity>
+    <a-entity geometry="primitive: plane; width: 10; height: 10;" rotation="270 0 0" shadow="receive: true;" material="color: blue;"></a-entity>
 
-    </a-scene>
+    <a-entity light="type: point; castShadow: true" position="3 6 5"></a-entity>
 
-  </body>
+    <a-entity light="type: ambient; intensity: .2"></a-entity>
+
+    <a-entity camera="userHeight: 3;" position="0 0 4" look-controls wasd-controls></a-entity>
+
+  </a-scene>
+
+</body>
+
 </html>
-
