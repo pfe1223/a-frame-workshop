@@ -47,7 +47,7 @@
 
   <script type="text/javascript">
     let scene = document.querySelector('a-scene');
-    let elementRadius = 2;
+    let elementRadius = 0.5;
     let objectCount = 25;
     let elementSpacing = 1;
     let size = (elementRadius * 2) + elementSpacing;
@@ -60,7 +60,7 @@
 
     function create3DObject(x, z, phase) {
       let element = document.createElement('a-entity');
-      element.setAttribute('geometry', `primitive: sphere; radius: ${elementRadius};`);
+      element.setAttribute('geometry', `primitive: torusKnot; radius: ${elementRadius};`);
       element.setAttribute('material', `color:#${getRandomColor()}; metalness: 0; roughness: 0`);
       element.setAttribute('position', `${x} 0 ${z}`);
       element.setAttribute('my-animation', `height: 10; phase: ${phase}; speedX:${speedX}; totalSizeX:${totalSize}`);
