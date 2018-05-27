@@ -1,0 +1,100 @@
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+  <script src="drop.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.min.js"></script>
+  <script type="text/javascript">
+    AFRAME.registerComponent('my-animation', {
+      schema: {
+        x: {
+          type: 'float',
+          default: 0.01
+        },
+        y: {
+          type: 'float',
+          default: 0
+        },
+        z: {
+          type: 'float',
+          default: 0
+        },
+        a: {
+          type: 'float',
+          default: 10
+        },
+        b: {
+          type: 'float',
+          default: 28
+        },
+        c: {
+          type: 'float',
+          default: 8.0 / 3.0
+        },
+        dt: {
+          type: 'float',
+          default: 0.01
+        }
+      },
+      tick: function(time, timeDelta) {
+        let position = this.el.object3D.position;
+        let dt = 0.001;
+        let dx = (this.data.a * (position.y - position.x)) * this.data.dt;
+        let dy = (position.x * (this.data.b - position.z) - position.y) * this.data.dt;
+        let dz = (position.x * position.y - this.data.c * position.z) * this.data.dt;
+        position.setX(position.x + dx);
+        position.setY(position.y + dy);
+        position.setZ(position.z + dz);
+        drop();
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <a-scene antialias="true">
+    <a-sky color="#000"></a-sky>
+    <a-entity camera position="0 10 4" look-controls></a-entity>
+  </a-scene>
+
+  <script type="text/javascript">
+    let scene = document.querySelector('a-scene');
+    let numObjects = 15;
+
+    let containerElement = document.createElement('a-entity');
+    containerElement.setAttribute('position', `0 0 -100`)
+    scene.appendChild(containerElement);
+
+    function create3DObject(x, y, z, dt, s) {
+      let element = document.createElement('a-entity');
+      element.setAttribute('geometry', `primitive: sphere; radius: ${s};`);
+      element.setAttribute('material', `color:#${getRandomColor()}; metalness: 0; roughness: 0`);
+      element.setAttribute('position', `${x} ${y} ${z}`);
+      element.setAttribute('my-animation', `x: ${x}; y: ${y}; z: ${z}; a: 10; b: 28; c: 8.0/3.0; dt: ${dt}`);
+      containerElement.appendChild(element);
+    }
+
+    create3DObject(0.01, 0, 0, 0.01, 4);
+
+    // function addObjects() {
+    //   for (let i = 0; i < numObjects; i++) {
+    //     create3DObject(0.01, 0, 0, i * (-0.00009) + 0.01, i * (-0.2) + 5);
+    //   }
+    // }
+    //
+    // addObjects();
+
+    // get random hex color
+    function getRandomColor() {
+      let letters = '0123456789abcdef';
+      let randomColor = '';
+      for (let i = 0; i < 6; i++) {
+        randomColor += letters[Math.floor(Math.random() * 16)];
+      }
+      return randomColor;
+    }
+  </script>
+
+  <body>
+
+</html>
